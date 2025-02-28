@@ -20,6 +20,10 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/taskmanag
   .catch(err => console.error('MongoDB connection error:', err));
 
 // Routes
+app.get("/", (req, res) => {
+  res.send("Backend is up and running!");
+});
+
 app.use("/auth", authRoutes);
 app.use('/api/tasks', taskRoutes);
 
