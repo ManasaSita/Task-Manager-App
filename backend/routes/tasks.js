@@ -42,6 +42,8 @@ router.post('/', async (req, res) => {
     dueDate: req.body.dueDate
   });
 
+  console.log("Creating task:", task);
+  
   try {
     const newTask = await task.save();
     res.status(201).json(newTask);
@@ -75,7 +77,7 @@ router.delete('/:userId/:taskId', async (req, res) => {
   try {
     console.log("Delete task----", req.params);
 
-    const task = await Task.findOne({ _id: req.params.taskId, userId: req.params.id });
+    const task = await Task.findOne({ _id: req.params.taskId, userId: req.params.userId });
     if (!task) return res.status(404).json({ message: 'Task not found' });
     
     await task.deleteOne();

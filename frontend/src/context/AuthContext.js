@@ -1,10 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
-import API_URL from "../config";
-
-fetch(`${API_URL}/tasks`)
-  .then(response => response.json())
-  .then(data => console.log(data));
+import { API_ENDPOINTS, getAuthHeaders } from "../config";
 
 const AuthContext = createContext();
 
@@ -16,7 +12,9 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem("token");
     if (token) {
       axios
-        .get(`${API_URL}/auth/me`, { headers: { "x-auth-token": token } })
+        .get(`${API_ENDPOINTS.auth.profile}`, { 
+          headers: "x-auth-token" 
+        })
         .then(res => setUser(res.data))
         .catch(() => logout())
         .finally(() => setLoading(false)); // Stop loading after request
@@ -27,7 +25,8 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post(`${API_URL}/auth/login`, { email, password });
+      console.log(`Attempting to login with API URL: ${API_ENDPOINTS.auth.login}`);
+      const response = await axios.post(API_ENDPOINTS.auth.login, { email, password });
       localStorage.setItem("token", response.data.token);
       setUser(response.data.user);
       return true;

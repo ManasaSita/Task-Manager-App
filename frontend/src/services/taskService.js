@@ -1,12 +1,10 @@
-import API_URL from "../config";
-
-fetch(`${API_URL}/tasks`)
-  .then(response => response.json())
-  .then(data => console.log(data));
+import { API_ENDPOINTS, getAuthHeaders } from "../config";
 
 export const getAllTasks = async (userId) => {
   try {
-    const response = await fetch(`${API_URL}/user/${userId}`); // Updated route
+    const response = await fetch(`${API_ENDPOINTS.tasks.base}/user/${userId}`, {
+      headers: getAuthHeaders()
+    });
     if (!response.ok) {
       throw new Error("Failed to fetch tasks");
     }
@@ -19,7 +17,9 @@ export const getAllTasks = async (userId) => {
 
 export const getTaskById = async (taskId, userId) => {
   try {
-    const response = await fetch(`${API_URL}/${userId}/${taskId}`); // Updated route
+    const response = await fetch(`${API_ENDPOINTS.tasks.base}/${userId}/${taskId}`, {
+      headers: getAuthHeaders()
+    });
     if (!response.ok) {
       throw new Error('Failed to fetch task');
     }
@@ -32,16 +32,19 @@ export const getTaskById = async (taskId, userId) => {
 
 export const createTask = async (taskData) => {
   try {
-    const response = await fetch(API_URL, {
+    console.log('Creating task with data:', taskData);
+    console.log('Using API URL:', API_ENDPOINTS.tasks.base);
+    
+    const response = await fetch(API_ENDPOINTS.tasks.base, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: getAuthHeaders(),
       body: JSON.stringify(taskData),
     });
     
     if (!response.ok) {
-      throw new Error('Failed to create task');
+      const errorData = await response.json().catch(() => ({}));
+      console.error('Server responded with error:', response.status, errorData);
+      throw new Error(`Failed to create task: ${response.status} ${errorData.message || ''}`);
     }
     
     return await response.json();
@@ -53,11 +56,9 @@ export const createTask = async (taskData) => {
 
 export const updateTask = async (taskId, userId, taskData) => {
   try {
-    const response = await fetch(`${API_URL}/${userId}/${taskId}`, {
+    const response = await fetch(`${API_ENDPOINTS.tasks.base}/${userId}/${taskId}`, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: getAuthHeaders(),
       body: JSON.stringify(taskData),
     });
     
@@ -74,8 +75,9 @@ export const updateTask = async (taskId, userId, taskData) => {
 
 export const deleteTask = async (userId, taskId) => {
   try {
-    const response = await fetch(`${API_URL}/${userId}/${taskId}`, {
+    const response = await fetch(`${API_ENDPOINTS.tasks.base}/${userId}/${taskId}`, {
       method: 'DELETE',
+      headers: getAuthHeaders(),
     });
     
     if (!response.ok) {

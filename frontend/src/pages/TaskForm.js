@@ -26,7 +26,7 @@ const TaskForm = () => {
         setIsEditing(true);
         setLoading(true);
         try {
-          const taskData = await getTaskById(taskId);
+          const taskData = await getTaskById(taskId, userId);
           // Format the date for input element
           const formattedDueDate = taskData.dueDate 
             ? new Date(taskData.dueDate).toISOString().split('T')[0]
@@ -88,7 +88,7 @@ const TaskForm = () => {
     try {
       if (isEditing) {
         await updateTask(taskId,userId, formData);
-        navigate(`/tasks/${userId}/${taskId}`);
+        navigate(`/tasks/${taskId}`);
       } else {
         const newTask = await createTask(formData);
         navigate(`/tasks/${newTask._id}`);
