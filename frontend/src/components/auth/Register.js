@@ -2,6 +2,11 @@ import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import AuthContext from "../../context/AuthContext";
+import API_URL from "../config";
+
+fetch(`${API_URL}/tasks`)
+  .then(response => response.json())
+  .then(data => console.log(data));
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -16,7 +21,7 @@ const Register = () => {
     setError(null);
 
     try {
-      const res = await axios.post("http://localhost:5000/auth/register", {username,email, password });
+      const res = await axios.post(`${API_URL}/auth/register`, {username,email, password });
       login(email, password);
       navigate("/");
     } catch (err) {

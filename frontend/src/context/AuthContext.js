@@ -1,5 +1,10 @@
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import API_URL from "../config";
+
+fetch(`${API_URL}/tasks`)
+  .then(response => response.json())
+  .then(data => console.log(data));
 
 const AuthContext = createContext();
 
@@ -11,7 +16,7 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem("token");
     if (token) {
       axios
-        .get("http://localhost:5000/auth/me", { headers: { "x-auth-token": token } })
+        .get(`${API_URL}/auth/me`, { headers: { "x-auth-token": token } })
         .then(res => setUser(res.data))
         .catch(() => logout())
         .finally(() => setLoading(false)); // Stop loading after request
@@ -22,7 +27,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post("http://localhost:5000/auth/login", { email, password });
+      const response = await axios.post(`${API_URL}/auth/login`, { email, password });
       localStorage.setItem("token", response.data.token);
       setUser(response.data.user);
       return true;
