@@ -3,9 +3,16 @@ const router = express.Router();
 const Task = require('../models/Task');
 
 // GET all tasks
-router.get('/', async (req, res) => {
+router.get("/user/:userId", async (req, res) => {
   try {
-    const tasks = await Task.find().sort({ createdAt: -1 });
+    console.log("Get all tasks----", req.params);
+
+    const { userId } = req.params;
+    if (!userId) return res.status(400).json({ message: "User ID is required" });
+
+    console.log("Fetching tasks for user:", userId);
+
+    const tasks = await Task.find({ userId });
     res.json(tasks);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -13,9 +20,11 @@ router.get('/', async (req, res) => {
 });
 
 // GET specific task
-router.get('/:id', async (req, res) => {
+router.get('/:userId/:taskId', async (req, res) => {
   try {
-    const task = await Task.findById(req.params.id);
+    console.log("Get a specific task----", req.params);
+    
+    const task = await Task.findById(req.params.taskId);
     if (!task) return res.status(404).json({ message: 'Task not found' });
     res.json(task);
   } catch (err) {
@@ -26,6 +35,7 @@ router.get('/:id', async (req, res) => {
 // CREATE task
 router.post('/', async (req, res) => {
   const task = new Task({
+    userId: req.body.id,
     title: req.body.title,
     description: req.body.description,
     status: req.body.status,
@@ -41,9 +51,11 @@ router.post('/', async (req, res) => {
 });
 
 // UPDATE task
-router.put('/:id', async (req, res) => {
+router.put('/:userId/:taskId', async (req, res) => {
   try {
-    const task = await Task.findById(req.params.id);
+    console.log("Update task----", req.params);
+    
+    let task = await Task.findOne({ _id: req.params.taskId, userId: req.params.userId });
     if (!task) return res.status(404).json({ message: 'Task not found' });
     
     if (req.body.title) task.title = req.body.title;
@@ -59,9 +71,11 @@ router.put('/:id', async (req, res) => {
 });
 
 // DELETE task
-router.delete('/:id', async (req, res) => {
+router.delete('/:userId/:taskId', async (req, res) => {
   try {
-    const task = await Task.findById(req.params.id);
+    console.log("Delete task----", req.params);
+
+    const task = await Task.findOne({ _id: req.params.taskId, userId: req.params.id });
     if (!task) return res.status(404).json({ message: 'Task not found' });
     
     await task.deleteOne();

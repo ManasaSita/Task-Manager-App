@@ -1,21 +1,21 @@
 const API_URL = 'http://localhost:5000/api/tasks';
 
-export const getAllTasks = async () => {
+export const getAllTasks = async (userId) => {
   try {
-    const response = await fetch(API_URL);
+    const response = await fetch(`${API_URL}/user/${userId}`); // Updated route
     if (!response.ok) {
-      throw new Error('Failed to fetch tasks');
+      throw new Error("Failed to fetch tasks");
     }
     return await response.json();
   } catch (error) {
-    console.error('Error in getAllTasks:', error);
+    console.error("Error in getAllTasks:", error);
     throw error;
   }
 };
 
-export const getTaskById = async (id) => {
+export const getTaskById = async (taskId, userId) => {
   try {
-    const response = await fetch(`${API_URL}/${id}`);
+    const response = await fetch(`${API_URL}/${userId}/${taskId}`); // Updated route
     if (!response.ok) {
       throw new Error('Failed to fetch task');
     }
@@ -47,9 +47,9 @@ export const createTask = async (taskData) => {
   }
 };
 
-export const updateTask = async (id, taskData) => {
+export const updateTask = async (taskId, userId, taskData) => {
   try {
-    const response = await fetch(`${API_URL}/${id}`, {
+    const response = await fetch(`${API_URL}/${userId}/${taskId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -68,9 +68,9 @@ export const updateTask = async (id, taskData) => {
   }
 };
 
-export const deleteTask = async (id) => {
+export const deleteTask = async (userId, taskId) => {
   try {
-    const response = await fetch(`${API_URL}/${id}`, {
+    const response = await fetch(`${API_URL}/${userId}/${taskId}`, {
       method: 'DELETE',
     });
     

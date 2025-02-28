@@ -3,6 +3,7 @@ const cors = require('cors');
 const taskRoutes = require('./routes/tasks');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const authRoutes = require("./routes/authRoutes");
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/taskmanag
   .catch(err => console.error('MongoDB connection error:', err));
 
 // Routes
+app.use("/auth", authRoutes);
 app.use('/api/tasks', taskRoutes);
 
 // Basic route
