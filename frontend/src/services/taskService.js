@@ -1,4 +1,4 @@
-import API_URL from "./config";
+import API_URL from "../config";
 
 fetch(`${API_URL}/tasks`)
   .then(response => response.json())
