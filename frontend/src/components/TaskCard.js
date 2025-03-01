@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const TaskCard = ({ task, onDelete }) => {
-    console.log(task);
+    // console.log(task);
     
   const getStatusStyles = (status) => {
     switch (status) {
@@ -26,7 +26,7 @@ const TaskCard = ({ task, onDelete }) => {
   };
 
   return (
-    <div className="card h-100 shadow-sm border-light hover-shadow">
+    <div className="card h-100 shadow-sm border-light hover-shadow task-card">
       <div className="card-body">
         <div className="d-flex justify-content-between align-items-start mb-3">
           <Link to={`/tasks/${task._id}`} className="fs-5 fw-semibold text-decoration-none text-dark stretched-link">

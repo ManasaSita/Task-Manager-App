@@ -36,3 +36,48 @@
     transform: rotate(360deg);
   }
 }
+
+.navbar {
+  background-color: rgba(13, 110, 253, 0.67) !important;
+
+  .container {
+
+    .logout-btn {
+      background: #f35555de; /* linear-gradient(to bottom, #77257ac9, #f795ff) */
+      border: #f35555de;
+    }
+  }
+}
+
+.task-card {
+  background-color: rgb(196, 238, 255) !important;
+  border: rgb(196, 238, 255) !important;
+}
+  
+.filter-card {
+  background-color: rgba(214, 172, 255, 0.747) !important;
+  border: rgba(214, 172, 255, 0.747) !important;
+
+  .btn-primary {
+    background-color: #3668ffbf;
+    border: #3668ffbf;
+  }
+
+  .btn-danger {
+    background-color: #ff5b6b;
+    /* border: #ff4b2bde !important; */
+  }
+
+  .btn-warning {
+    background-color: #ffe28a;
+    /* border: #dde792f2; */
+  }
+
+  .btn-success {
+    background-color: #198754ab;
+  }
+}
+
+.detail-card{
+  background-color: rgb(196, 238, 255) !important;
+}

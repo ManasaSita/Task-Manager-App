@@ -32,8 +32,8 @@ export const getTaskById = async (taskId, userId) => {
 
 export const createTask = async (taskData) => {
   try {
-    console.log('Creating task with data:', taskData);
-    console.log('Using API URL:', API_ENDPOINTS.tasks.base);
+    // console.log('Creating task with data:', taskData);
+    // console.log('Using API URL:', API_ENDPOINTS.tasks.base);
     
     const response = await fetch(API_ENDPOINTS.tasks.base, {
       method: 'POST',

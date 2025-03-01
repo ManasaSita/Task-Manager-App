@@ -15,7 +15,7 @@ const TaskList = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        console.log(userId);
+        // console.log(userId);
         
         const data = await getAllTasks(userId);
         setTasks(data);
@@ -145,38 +145,38 @@ const TaskList = () => {
 
   return (
     <div>
-      <div className="mb-4">
+      {/* <div className="mb-4">
         <h1 className="display-6 fw-bold text-dark mb-2">Your Tasks</h1>
         <p className="text-secondary">Manage and organize all your tasks in one place</p>
-      </div>
+      </div> */}
       
-      <div className="card mb-4 shadow-sm">
+      <div className="card mb-4 shadow-sm filter-card">
         <div className="card-body d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-3">
-          <div className="btn-group">
+          <div className="btn-group bg-light">
             <button 
               onClick={() => setFilter('all')} 
-              className={`btn ${filter === 'all' ? 'btn-primary' : 'btn-outline-secondary'}`}
+              className={`btn ${filter === 'all' ? 'btn-primary bg-opacity-10' : 'btn-outline-secondary'}`}
               disabled={tasks.length === 0}
             >
               All
             </button>
             <button 
               onClick={() => setFilter('pending')} 
-              className={`btn ${filter === 'pending' ? 'btn-danger' : 'btn-outline-secondary'}`}
+              className={`btn ${filter === 'pending' ? 'btn-danger bg-opacity-10' : 'btn-outline-secondary'}`}
               disabled={tasks.length === 0}
             >
               Pending
             </button>
             <button 
               onClick={() => setFilter('in-progress')} 
-              className={`btn ${filter === 'in-progress' ? 'btn-warning' : 'btn-outline-secondary'}`}
+              className={`btn ${filter === 'in-progress' ? 'btn-warning bg-opacity-10' : 'btn-outline-secondary'}`}
               disabled={tasks.length === 0}
             >
               In Progress
             </button>
             <button 
               onClick={() => setFilter('completed')} 
-              className={`btn ${filter === 'completed' ? 'btn-success' : 'btn-outline-secondary'}`}
+              className={`btn ${filter === 'completed' ? 'btn-success bg-opacity-10' : 'btn-outline-secondary'}`}
               disabled={tasks.length === 0}
             >
               Completed
