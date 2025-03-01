@@ -24,7 +24,7 @@ A full-stack task management application built with React, Node.js, and MongoDB.
 
 ### Clone Repository
 ```sh
-git clone [https://github.com/ManasaSita/Task-Manager-App.git](https://github.com/ManasaSita/Task-Manager-App.git)
+git clone https://github.com/ManasaSita/Task-Manager-App.git
 ```
 
 ### Backend Setup
