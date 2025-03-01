@@ -32,7 +32,7 @@ const TaskList = () => {
   const handleDeleteTask = async (id) => {
     if (window.confirm('Are you sure you want to delete this task?')) {
       try {
-        await deleteTask(id);
+        await deleteTask(userId, id);
         setTasks(tasks.filter(task => task._id !== id));
       } catch (error) {
         console.error('Error deleting task:', error);
@@ -78,14 +78,14 @@ const TaskList = () => {
           icon: "clock",
           title: "No tasks in progress",
           message: "You don't have any tasks currently in progress",
-          buttonText: "Update the Status of Task"
+          buttonText: "Start with a Task"
         };
       case 'completed':
         return {
           icon: "check-circle",
-          title: "No completed tasks",
-          message: "You haven't completed any tasks yet",
-          buttonText: "View All Tasks"
+          title: "Done with all tasks",
+          message: "Or haven't completed any tasks yet",
+          buttonText: "New Task"
         };
       default:
         return {

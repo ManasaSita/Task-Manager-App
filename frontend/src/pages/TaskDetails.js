@@ -32,7 +32,7 @@ const TaskDetails = () => {
   const handleDeleteTask = async () => {
     if (window.confirm('Are you sure you want to delete this task?')) {
       try {
-        await deleteTask(taskId, userId);
+        await deleteTask(userId, taskId);
         navigate('/');
       } catch (error) {
         console.error('Error deleting task:', error);

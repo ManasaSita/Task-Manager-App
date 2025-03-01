@@ -6,7 +6,7 @@ const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
   
   return (
-    <nav className="navbar shadow" style={{ backgroundColor: '#6f42c1' }}>
+    <nav className="navbar navbar-dark bg-primary shadow">
       <div className="container d-flex justify-content-between align-items-center py-2">
         {/* Logo & Home Link */}
         <Link to="/" className="navbar-brand d-flex align-items-center fs-4 fw-bold text-white text-decoration-none">
