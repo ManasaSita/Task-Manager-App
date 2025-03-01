@@ -7,6 +7,7 @@ A full-stack task management application built with React, Node.js, and MongoDB.
 - Create, edit, delete tasks
 - Task details view
 - Secure private routes for authenticated users
+- Filter to sort tasks based on task-status and due date
 
 ## Tech Stack
 ### Frontend:
