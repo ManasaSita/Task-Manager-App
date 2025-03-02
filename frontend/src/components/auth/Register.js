@@ -11,21 +11,34 @@ const Register = () => {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
+    setLoading(true);
 
     try {
-      const res = await axios.post(API_ENDPOINTS.auth.register, {
+      // Register the user
+      await axios.post(API_ENDPOINTS.auth.register, {
         username,
         email, 
         password 
       });
-      login(email, password);
-      navigate("/");
+      
+      // After successful registration, wait for login to complete
+      const loginSuccess = await login(email, password);
+      
+      if (loginSuccess) {
+        // Only navigate if login was successful
+        navigate("/");
+      } else {
+        setError("Registration successful, but login failed. Please try logging in manually.");
+      }
     } catch (err) {
       setError(err.response?.data?.message || "Registration failed.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -35,7 +48,7 @@ const Register = () => {
         <h3 className="text-center mb-3">Register</h3>
         {error && <div className="alert alert-danger">{error}</div>}
         <form onSubmit={handleSubmit}>
-        <div className="mb-3">
+          <div className="mb-3">
             <label className="form-label">Name</label>
             <input
               type="text"
@@ -65,7 +78,13 @@ const Register = () => {
               required
             />
           </div>
-          <button type="submit" className="btn btn-primary w-100">Register</button>
+          <button 
+            type="submit" 
+            className="btn btn-primary w-100"
+            disabled={loading}
+          >
+            {loading ? "Processing..." : "Register"}
+          </button>
         </form>
         <p className="text-center mt-3">
           Already have an account? <Link to="/login">Login Here!</Link>
