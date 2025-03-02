@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      console.log(`Attempting to login with API URL: ${API_ENDPOINTS.auth.login}`);
+      // console.log(`Attempting to login with API URL: ${API_ENDPOINTS.auth.login}`);
       const response = await axios.post(API_ENDPOINTS.auth.login, { email, password });
       localStorage.setItem("token", response.data.token);
       setUser(response.data.user);
