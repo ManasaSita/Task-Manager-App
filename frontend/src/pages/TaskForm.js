@@ -121,7 +121,7 @@ const TaskForm = () => {
           </Link>
         </div>
 
-        <div className="card shadow-sm">
+        <div className="card task-form shadow-sm">
           <div className="card-body p-4">
             <h1 className="fs-3 fw-bold text-dark mb-4">
               {isEditing ? 'Edit Task' : 'Create New Task'}

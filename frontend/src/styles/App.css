@@ -81,3 +81,7 @@
 .detail-card{
   background-color: rgb(196, 238, 255) !important;
 }
+
+.task-form {
+  background: linear-gradient(to bottom, #fca6ffc9, #eacced);
+}
